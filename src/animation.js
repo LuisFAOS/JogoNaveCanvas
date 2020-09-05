@@ -4,20 +4,25 @@ export default function Animation(context) {
         context,
         sprites: [],
         switchedOn: false,
-        newSprite: function(sprite) {
+        processings: [],
+        newSprite(sprite) {
             this.sprites.push(sprite);
+            sprite.Animation = this
          },
          
-         turnOn: function() {
+         turnOn() {
             this.switchedOn = true;
             this.nextFrame();
          },
 
-         turnOff: function() {
+         turnOff() {
             this.switchedOn = false;
          },
-
-         nextFrame: function() {
+         newProcessing(processing){
+            this.processings.push(processing)
+            processing.animation = this
+         },
+         nextFrame() {
             if ( ! this.switchedOn ) return;
       
             // clean screen each ciclo
@@ -31,13 +36,15 @@ export default function Animation(context) {
             for (var i in this.sprites)
                this.sprites[i].draw();
       
+            for (let i in this.processings)
+               this.processings[i].process()
             // Calling the next lvl
             requestAnimationFrame(() => {
                  this.nextFrame();
             });
          },
          
-         clearScreen: function() {
+         clearScreen() {
             const ctx = this.context;
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
          }
