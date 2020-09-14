@@ -1,8 +1,7 @@
 import imgs from './features/loader-imgs.js'
-import Collider from './features/collider.js.js'
-import Animation from './features/animation.js.js'
-import Keyboard from './features/keyboard.js.js'
-import createEnemies from './features/create-enemies.js.js'
+import Collider from './features/collider.js'
+import Animation from './features/animation.js'
+import Keyboard from './features/keyboard.js'
 
 import Background from './elements/background.js'
 import Spaceship from './elements/spaceship.js'
@@ -20,18 +19,20 @@ export default function index() {
     
     const keyboard = new Keyboard(document)
    
-    backSpace.speed = 3;
-    backStars.speed = 7;
-    backClouds.speed = 10;
+    backSpace.speed = 70;
+    backStars.speed = 150;
+    backClouds.speed = 500;
     
    
     const animation = new Animation(context)
     const collider = new Collider()
     const spaceship = new Spaceship(context, imgs[3], keyboard)
+    
     animation.newSprite(backSpace)
     animation.newSprite(backStars)
     animation.newSprite(backClouds)
     animation.newSprite(spaceship)
+
     animation.newProcessing(collider)
 
     collider.newSprite(spaceship)

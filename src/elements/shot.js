@@ -2,13 +2,14 @@ export default function shot (context, space_ship){
 
 
     return {
+        id: 'shot',
         context,
         space_ship,
         width:3,
-        height:15,
-        x: space_ship.x + space_ship.image.width / 2 - 4 / 2,
-        y: space_ship.y - 20,
-        speed:6,
+        height:10,
+        x: space_ship.x + 18,
+        y: space_ship.y - 3,
+        speed:5,
         color:'red',
         update (){
             this.y -= this.speed

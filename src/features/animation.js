@@ -6,6 +6,8 @@ export default function Animation(context) {
         switched_on: false,
         processings: [],
         sprites_exclude: [],
+        time_between_circles: 0,
+        last_circle: 0,
         processings_exclude: [],
         newSprite(sprite) {
             this.sprites.push(sprite);
@@ -26,7 +28,9 @@ export default function Animation(context) {
          },
          nextFrame() {
             if ( ! this.switched_on ) return;
-      
+            const date_now = new Date().getTime();
+            if (this.last_circle == 0) this.last_circle = date_now;
+            this.time_between_circles = date_now - this.last_circle;
             // clean screen each ciclo
             this.clearScreen();
       
@@ -46,6 +50,8 @@ export default function Animation(context) {
             requestAnimationFrame(() => {
                  this.nextFrame();
             });
+
+            this.last_circle = date_now
          },
          clearScreen() {
             const ctx = this.context;
@@ -58,11 +64,10 @@ export default function Animation(context) {
             this.processings_exclude.push(processing);
          },
          processExclusions() {
-            // Criar novos arrays
+
             const new_sprites = [];
             const new_processings = [];
             
-            // Adicionar somente se não constar no array de excluídos
             for (var i in this.sprites) {
                if (this.sprites_exclude.indexOf(this.sprites[i]) == -1)
                   new_sprites.push(this.sprites[i]);
@@ -74,11 +79,9 @@ export default function Animation(context) {
                    new_processings.push(this.processings[i]);
             }
             
-            // Limpar os arrays de exclusões
             this.sprites_exclude = [];
             this.processings_exclude = [];
             
-            // Substituir os arrays velhos pelos novos
             this.sprites = new_sprites;
             this.processamentos = new_processings;
          }

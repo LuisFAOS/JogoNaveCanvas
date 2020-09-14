@@ -70,16 +70,13 @@ export default function Collider(){
         processExclusions(){
             var newArray = [];
       
-            // Adicionar somente os elementos não excluídos
             for (var i in this.sprites) {
                if (this.sprites_exclude.indexOf(this.sprites[i]) == -1)
                     newArray.push(this.sprites[i]);
             }
             
-            // Limpar o array de exclusões
             this.sprites_exclude = [];
             
-            // Substituir o array velho pelo novo
             this.sprites = newArray;
         },
         collide_rectangles(rect1, rect2) {

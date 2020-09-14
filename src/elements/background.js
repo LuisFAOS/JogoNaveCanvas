@@ -5,13 +5,13 @@ export default function Background(context, image){
         image,
         speed: 0,
         emendPosition: 0,
-        update: function () {
-            this.emendPosition += this.speed
+        update() {
+            this.emendPosition += this.speed * this.animation.time_between_circles / 1000
     
             if (this.emendPosition > this.image.height)
                 this.emendPosition = 0
         },
-        draw: function () {
+        draw() {
             const img = this.image
     
             let positionY = this.emendPosition - img.height

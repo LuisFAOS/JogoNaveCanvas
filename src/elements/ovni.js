@@ -1,7 +1,8 @@
-import Shot from './shot.js'
+import shot from "./shot.js";
 
 function Ovni (context, image, keyboard) {
     return {
+        id: 'ovni',
         image,
         context,
         speed:0,
@@ -29,7 +30,7 @@ function Ovni (context, image, keyboard) {
             return rets; 
         },
         collided_with(other){
-            if (other instanceof Object) {
+            if (other.id === 'shot') {
                 this.animation.excludeSprite(this);
                 this.collider.excludeSprite(this);
                 this.animation.excludeSprite(other);
