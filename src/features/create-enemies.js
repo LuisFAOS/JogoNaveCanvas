@@ -1,3 +1,17 @@
+import Ovni from '../elements/ovni.js'
+import imgs from './imgs-loader.js'
+
+function newOvni(context, image, animation, collider){
+    const ovni = new Ovni(context, image, imgs[5])
+    const canvas = document.getElementById('content-canvas')
+
+    ovni.speed = Math.floor( 5 + Math.random() * (20 - 5 + 1) );
+    ovni.x = Math.floor(Math.random() * (canvas.width - image.width + 1) );
+    ovni.y = -image.height
+    animation.newSprite(ovni)
+    collider.newSprite(ovni);
+}
+
 export default function createEnemies(context, image, animation, collider){
 
     const enemyCreator = {
@@ -12,6 +26,6 @@ export default function createEnemies(context, image, animation, collider){
             }
         }
      };
-     
+
      animation.newProcessing(enemyCreator);
 }

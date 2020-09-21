@@ -5,6 +5,7 @@ export default function Spritesheet(context, image, num_lines, num_columns, inte
         num_lines,
         num_columns,
         interval,
+        end_cicle: null,
         line:0,
         column:0,
         last_time:0,
@@ -18,8 +19,10 @@ export default function Spritesheet(context, image, num_lines, num_columns, inte
 
             if (this.column < this.num_columns - 1)
                 this.column++;
-            else
+            else{
                 this.column = 0;
+                if(this.end_cicle) this.end_cicle();
+            }
 
             this.last_time = date_now;
         },
@@ -37,6 +40,9 @@ export default function Spritesheet(context, image, num_lines, num_columns, inte
                 frame_width,
                 frame_height
             );
+        },
+        end_cicle(){
+
         }
     }
 }

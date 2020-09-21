@@ -6,7 +6,7 @@ function Keyboard(element){
 
     this.fired = [];
 
-   this.firedFunctions = [];
+    this.firedFunctions = [];
 
     element.addEventListener('keydown', (event)=>{
         const key = event.keyCode;  // Tornando mais legível ;)
