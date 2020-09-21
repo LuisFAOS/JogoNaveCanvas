@@ -3,17 +3,20 @@ let Y_ARROW = [87,83]
 
 import Spritesheet from '../features/spritesheet.js'
 import Shot from './shot.js'
+import Explosion from './explosion.js'
 
-export default function Spaceship (context, image, keyboard, collider) {
+export default function Spaceship (context, image, ExplosionImg, keyboard, collider) {
     return {
         id: 'spaceship',
         spritesheet: new Spritesheet(context, image, 3, 2, 100),
         image,
         context,
+        ExplosionImg,
         keyboard,
         x:226,
         y:440,
         collider,
+        activate_shot:true,
         update() {
             const increment = 300 * this.animation.time_between_circles / 1000;
             if(keyboard.pressed(X_ARROW[0]) && 
@@ -64,7 +67,24 @@ export default function Spaceship (context, image, keyboard, collider) {
         },
         collided_with(other){
             if (other.id === 'ovni') {
-                this.animation.turnOff();
+                this.animation.excludeSprite(this)
+                this.animation.excludeSprite(other)
+                this.collider.excludeSprite(this)
+                this.collider.excludeSprite(other)
+
+                const EnemyExplosion = new Explosion(
+                    this.context, this.ExplosionImg, this.x, this.y
+                )
+                const SpaceShipExplosion = new Explosion(
+                    other.context, other.ExplosionImg, other.x, other.y
+                )
+
+                this.animation.newSprite(EnemyExplosion)
+                this.animation.newSprite(SpaceShipExplosion)
+                SpaceShipExplosion.end_explosion = ()=>{
+                    this.animation.turnOff();
+                    alert('GAME OVER!!!')
+                }
             }
         }
     }

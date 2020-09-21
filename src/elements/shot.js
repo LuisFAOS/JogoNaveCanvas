@@ -1,5 +1,11 @@
-export default function shot (context, space_ship){
 
+export default function shot (context, space_ship){
+    const SHOT_SOUND = new Audio()
+    SHOT_SOUND.src = 'http://localhost/JogoNaveCanvas/assets/snd/shot.mp3'
+    SHOT_SOUND.volume = 0.2
+    SHOT_SOUND.load()
+    SHOT_SOUND.currentTime = 0.0
+    SHOT_SOUND.play()
 
     return {
         id: 'shot',
