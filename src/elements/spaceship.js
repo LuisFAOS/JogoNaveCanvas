@@ -4,12 +4,15 @@ let Y_ARROW = [87,83]
 import Spritesheet from '../features/spritesheet.js'
 import Shot from './shot.js'
 import Explosion from './explosion.js'
+import GameOver from '../screens/game-over.js'
 
 export default function Spaceship (context, image, ExplosionImg, keyboard, collider) {
     return {
         id: 'spaceship',
         spritesheet: new Spritesheet(context, image, 3, 2, 100),
         image,
+        extraLifes: 3,
+        lifesEnded: null,
         context,
         ExplosionImg,
         keyboard,
@@ -81,9 +84,22 @@ export default function Spaceship (context, image, ExplosionImg, keyboard, colli
 
                 this.animation.newSprite(EnemyExplosion)
                 this.animation.newSprite(SpaceShipExplosion)
-                SpaceShipExplosion.end_explosion = ()=>{
-                    this.animation.turnOff();
-                    alert('GAME OVER!!!')
+                SpaceShipExplosion.end_explosion = () => {
+                    this.extraLifes--
+                    if(this.extraLifes > 0) {
+                        this.x = 226
+                        this.y = 440
+                        this.animation.newSprite(this)
+                        this.collider.newSprite(this)
+                    }
+                    else {
+                        this.animation.turnOff();
+                        for (var i in other.animation.sprites) {
+                            if (other.animation.sprites[i].id === 'ovni')
+                                other.animation.excludeSprite(other.animation.sprites[i]);
+                        }  
+                        GameOver(this, keyboard, context)
+                    }
                 }
             }
         }

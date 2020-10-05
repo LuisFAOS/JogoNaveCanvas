@@ -54,15 +54,15 @@ export default function Collider(){
             collisions:
             for (let i in rects1) {
                 for (let j in rects2) {
-                    // Abstraindo a fórmula!
+
                     if (this.collide_rectangles(rects1[i], rects2[j])) {
-                    // Eles colidem, vamos notificá-los
+
                         sprite1.collided_with(sprite2);
                         sprite2.collided_with(sprite1);
-                    // Tratador geral
+
                         if (this.when_colliding) this.when_colliding(sprite1, sprite2);
-                    // Não precisa terminar de ver todos os retângulos
-                    break collisions;
+                    
+                        break collisions;
                     }
                 }
             }

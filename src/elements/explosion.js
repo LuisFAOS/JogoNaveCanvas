@@ -10,7 +10,6 @@ export default function Explosion (context, image, x, y){
 
     return {
         context,
-        image,
         spritesheet: new Spritesheet(context, image, 1, 5, 75),
         x,
         end_explosion: null,

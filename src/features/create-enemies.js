@@ -2,7 +2,7 @@ import Ovni from '../elements/ovni.js'
 import imgs from './imgs-loader.js'
 
 function newOvni(context, image, animation, collider){
-    const ovni = new Ovni(context, image, imgs[5])
+    const ovni = new Ovni(context, image, imgs.explosion)
     const canvas = document.getElementById('content-canvas')
 
     ovni.speed = Math.floor( 5 + Math.random() * (20 - 5 + 1) );
